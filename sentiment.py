@@ -1,8 +1,13 @@
 
-
-
 import subprocess
 import sys
+import os
+
+# Create and activate virtual environment
+venv_path = os.path.join(os.getcwd(), "venv")
+subprocess.check_call([sys.executable, "-m", "venv", venv_path])
+activate_script = os.path.join(venv_path, "bin", "activate")
+subprocess.check_call(["source", activate_script])
 
 # Install textblob
 subprocess.check_call([sys.executable, "-m", "pip", "install", "textblob"])
@@ -13,6 +18,9 @@ from textblob import TextBlob
 import pandas as pd
 import altair as alt
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+
+# Your Streamlit app code here...
+
 
 # Your Streamlit app code here...
 

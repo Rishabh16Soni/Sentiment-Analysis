@@ -7,11 +7,18 @@ import os
 venv_path = os.path.join(os.getcwd(), "venv")
 subprocess.check_call([sys.executable, "-m", "venv", venv_path])
 activate_script = os.path.join(venv_path, "bin", "activate")
-activate_cmd = f"source {activate_script}" if os.name == "posix" else f"call {activate_script}"
+
+# Check the platform to determine the correct shell command
+if os.name == "posix":  # Unix-like systems (Linux, macOS)
+    activate_cmd = f"source {activate_script} && python -m pip install textblob"
+elif os.name == "nt":   # Windows
+    activate_cmd = f"{activate_script} && python -m pip install textblob"
+else:
+    raise NotImplementedError("Activation not supported on this platform")
+
 subprocess.check_call(activate_cmd, shell=True)
 
-# Install textblob
-subprocess.check_call(["pip", "install", "textblob"])
+# Continue with the rest of your code...
 
 
 

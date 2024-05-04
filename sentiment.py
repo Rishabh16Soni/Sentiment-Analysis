@@ -9,7 +9,8 @@ import os
 venv_path = os.path.join(os.getcwd(), "venv")
 subprocess.check_call([sys.executable, "-m", "venv", venv_path])
 activate_script = os.path.join(venv_path, "bin", "activate")
-subprocess.check_call(["bash", "-c", f"source {activate_script}"])
+subprocess.check_call([activate_script, "&&", sys.executable, "-m", "pip", "install", "textblob"])
+
 
 # Install textblob
 subprocess.check_call([sys.executable, "-m", "pip", "install", "textblob"])

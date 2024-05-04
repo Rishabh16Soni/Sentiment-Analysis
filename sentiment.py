@@ -1,25 +1,25 @@
 import subprocess
 import sys
 import os
-import venv  # Import venv module to create the virtual environment
 
 # Create virtual environment
 venv_path = os.path.join(os.getcwd(), "venv")
-venv.create(venv_path, with_pip=True)
+subprocess.check_call([sys.executable, "-m", "venv", venv_path])
 
 # Activate virtual environment and install textblob
 if os.name == "posix":  # Unix-like systems (Linux, macOS)
     activate_script = os.path.join(venv_path, "bin", "activate")
-    activate_cmd = f"source {activate_script} && python -m pip install textblob"
+    activate_cmd = f"{activate_script} && pip install textblob"
 elif os.name == "nt":   # Windows
     activate_script = os.path.join(venv_path, "Scripts", "activate.bat")
-    activate_cmd = f"{activate_script} && python -m pip install textblob"
+    activate_cmd = f"{activate_script} && pip install textblob"
 else:
     raise NotImplementedError("Activation not supported on this platform")
 
 subprocess.check_call(activate_cmd, shell=True)
 
 # Continue with the rest of your code...
+.
 
 
 

@@ -1,10 +1,20 @@
 
-import streamlit as st  
+
+
+import subprocess
+import sys
+
+# Install textblob
+subprocess.check_call([sys.executable, "-m", "pip", "install", "textblob"])
+
+# Import required modules
+import streamlit as st
 from textblob import TextBlob
 import pandas as pd
 import altair as alt
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
+# Your Streamlit app code here...
 
 # Fxn
 def convert_to_df(sentiment):

@@ -9,20 +9,14 @@ subprocess.check_call([sys.executable, "-m", "venv", venv_path])
 # Activate virtual environment
 if os.name == "posix":  # Unix-like systems (Linux, macOS)
     activate_script = os.path.join(venv_path, "bin", "activate")
-    activate_cmd = f"source {activate_script}"
+    activate_cmd = f"source {activate_script} && pip install textblob"
 elif os.name == "nt":   # Windows
     activate_script = os.path.join(venv_path, "Scripts", "activate.bat")
-    activate_cmd = f"call {activate_script}"
+    activate_cmd = f"call {activate_script} && pip install textblob"
 else:
     raise NotImplementedError("Activation not supported on this platform")
 
 subprocess.check_call(activate_cmd, shell=True)
-
-# Install textblob
-try:
-    subprocess.check_call(["pip", "install", "textblob"])
-except subprocess.CalledProcessError as e:
-    print("Error installing textblob:", e)
 
 # Import required modules after activating the virtual environment
 import streamlit as st
@@ -32,6 +26,7 @@ import altair as alt
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 # Continue with the rest of your code...
+
 
 
 # Import required modules

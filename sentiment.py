@@ -3,17 +3,19 @@ import subprocess
 import sys
 import os
 
-
-
 # Create and activate virtual environment
 venv_path = os.path.join(os.getcwd(), "venv")
 subprocess.check_call([sys.executable, "-m", "venv", venv_path])
 activate_script = os.path.join(venv_path, "bin", "activate")
-subprocess.check_call([activate_script, "&&", sys.executable, "-m", "pip", "install", "textblob"])
-
+activate_cmd = f"source {activate_script}" if os.name == "posix" else f"call {activate_script}"
+subprocess.check_call(activate_cmd, shell=True)
 
 # Install textblob
-subprocess.check_call([sys.executable, "-m", "pip", "install", "textblob"])
+subprocess.check_call(["pip", "install", "textblob"])
+
+
+
+
 
 # Import required modules
 import streamlit as st

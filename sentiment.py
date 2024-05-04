@@ -19,11 +19,6 @@ else:
 subprocess.check_call(activate_cmd, shell=True)
 
 # Continue with the rest of your code...
-.
-
-
-
-
 
 # Import required modules
 import streamlit as st

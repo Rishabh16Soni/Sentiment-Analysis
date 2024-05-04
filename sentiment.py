@@ -1,23 +1,38 @@
+import subprocess
+import sys
 import os
-import venv  # Import venv module to create the virtual environment
-import platform
 
 # Create virtual environment
 venv_path = os.path.join(os.getcwd(), "venv")
-if platform.system() == "Windows":
-    venv.create(venv_path, with_pip=True)
-else:
-    venv.create(venv_path, with_pip=True, prompt='')
+subprocess.check_call([sys.executable, "-m", "venv", venv_path])
 
-# Activate virtual environment and install textblob
-activate_script = os.path.join(venv_path, "bin" if platform.system() != "Windows" else "Scripts", "activate")
-activate_cmd = f"source {activate_script}" if platform.system() != "Windows" else f"call {activate_script}"
-os.system(activate_cmd)
+# Activate virtual environment
+if os.name == "posix":  # Unix-like systems (Linux, macOS)
+    activate_script = os.path.join(venv_path, "bin", "activate")
+    activate_cmd = f"source {activate_script}"
+elif os.name == "nt":   # Windows
+    activate_script = os.path.join(venv_path, "Scripts", "activate.bat")
+    activate_cmd = f"call {activate_script}"
+else:
+    raise NotImplementedError("Activation not supported on this platform")
+
+subprocess.check_call(activate_cmd, shell=True)
 
 # Install textblob
-os.system("pip install textblob")
+try:
+    subprocess.check_call(["pip", "install", "textblob"])
+except subprocess.CalledProcessError as e:
+    print("Error installing textblob:", e)
+
+# Import required modules after activating the virtual environment
+import streamlit as st
+from textblob import TextBlob
+import pandas as pd
+import altair as alt
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 # Continue with the rest of your code...
+
 
 # Import required modules
 import streamlit as st
